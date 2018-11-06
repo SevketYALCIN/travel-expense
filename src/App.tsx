@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
 import './App.css';
+import { simpleAction } from './actions/simpleAction';
+import { Store } from './store';
 
-class App extends Component {
+const mapStateToProps = (state: Store) => ({
+  ...state
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  simpleAction: () => dispatch(simpleAction())
+});
+
+class App extends Component<AppProps> {
+  simpleAction = () => {
+    this.props.simpleAction();
+  };
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div>
+          <button onClick={this.simpleAction}>Test redux action</button>
+        </div>
+        <pre>{JSON.stringify(this.props)}</pre>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+interface AppProps extends Store {
+  simpleAction: () => void;
+}
