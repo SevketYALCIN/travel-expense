@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import { simpleAction } from './actions/simpleAction';
 import { Store } from './store';
+import { Container, Button, Header } from "semantic-ui-react";
 
 const mapStateToProps = (state: Store) => ({
   ...state
@@ -19,12 +20,17 @@ class App extends Component<AppProps> {
 
   render() {
     return (
-      <div className="App">
-        <div>
-          <button onClick={this.simpleAction}>Test redux action</button>
-        </div>
-        <pre>{JSON.stringify(this.props)}</pre>
-      </div>
+      <Container className="App">
+        <Header as="h1">
+          Travelo
+        </Header>
+        <h3>
+          Use Travelo to track your travel expenses during trips with friends and family!
+        </h3>
+        <Button>
+          Get Started
+        </Button>
+      </Container>
     );
   }
 }
